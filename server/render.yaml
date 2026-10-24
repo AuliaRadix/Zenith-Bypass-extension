@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: zenith-bypass-edge
+    env: node
+    plan: free
+    buildCommand: npm install --production
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PROXY_USERNAME
+        generateValue: false
+      - key: PROXY_PASSWORD
+        generateValue: false

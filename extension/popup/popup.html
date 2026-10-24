@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenith Bypass</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Zenith Bypass</h1>
+          <span class="subtitle">Smart DNS & Censorship Proxy</span>
+        </div>
+      </div>
+      <div id="statusBadge" class="status-badge badge-off">
+        <span class="badge-dot"></span>
+        <span class="badge-label">OFFLINE</span>
+      </div>
+    </header>
+
+    <!-- Main Toggle Card -->
+    <section class="hero-card">
+      <div class="hero-info">
+        <span class="hero-label">BYPASS STATUS</span>
+        <h2 id="heroStatusText">Protection Inactive</h2>
+        <p id="heroModeText" class="hero-subtext">Click to enable smart routing</p>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="mainToggle">
+        <span class="slider"></span>
+      </label>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="tab-overview">Overview</button>
+      <button class="tab-btn" data-tab="tab-domains">Domains (<span id="domainCount">0</span>)</button>
+      <button class="tab-btn" data-tab="tab-settings">Server Config</button>
+    </nav>
+
+    <!-- Tab 1: Overview -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="card-metric">
+        <div class="metric-row">
+          <span class="metric-label">Routing Mode:</span>
+          <div class="mode-selector">
+            <button id="modeSelectiveBtn" class="mode-btn active">Smart PAC</button>
+            <button id="modeGlobalBtn" class="mode-btn">Global</button>
+          </div>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Active Node:</span>
+          <span id="activeNodeLabel" class="metric-val mono">-</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Latency / Health:</span>
+          <span id="latencyLabel" class="metric-val">Not tested</span>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button id="testProxyBtn" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          Test Edge Latency
+        </button>
+        <button id="testRedditBtn" class="btn btn-outline">
+          Test Reddit
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab 2: Domains -->
+    <div id="tab-domains" class="tab-content">
+      <div class="domain-input-group">
+        <input type="text" id="newDomainInput" placeholder="e.g. *.reddit.com or vimeo.com" spellcheck="false">
+        <button id="addDomainBtn" class="btn btn-primary btn-sm">Add</button>
+      </div>
+
+      <div class="domain-list-container">
+        <ul id="domainList" class="domain-list">
+          <!-- Dynamically populated -->
+        </ul>
+      </div>
+
+      <div class="domain-footer">
+        <span class="hint-text">Wildcard <code>*</code> supported</span>
+        <button id="resetDomainsBtn" class="btn-link">Reset Defaults</button>
+      </div>
+    </div>
+
+    <!-- Tab 3: Settings -->
+    <div id="tab-settings" class="tab-content">
+      <form id="settingsForm" class="settings-form">
+        <div class="form-row">
+          <label for="proxyProtocol">Protocol</label>
+          <select id="proxyProtocol" class="form-select">
+            <option value="HTTPS">HTTPS (Recommended / Encrypted)</option>
+            <option value="SOCKS5">SOCKS5</option>
+            <option value="HTTP">HTTP</option>
+          </select>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row flex-grow">
+            <label for="proxyHost">Server Host / Domain</label>
+            <input type="text" id="proxyHost" placeholder="proxy.your-app.koyeb.app" spellcheck="false" required>
+          </div>
+          <div class="form-row width-sm">
+            <label for="proxyPort">Port</label>
+            <input type="number" id="proxyPort" placeholder="443" min="1" max="65535" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="proxyUsername">Username (Optional)</label>
+            <input type="text" id="proxyUsername" placeholder="user" spellcheck="false">
+          </div>
+          <div class="form-row">
+            <label for="proxyPassword">Password (Optional)</label>
+            <input type="password" id="proxyPassword" placeholder="••••••••">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary w-full">Save Server Configuration</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span>Zenith Bypass v1.0.0</span>
+      <span class="dot-separator">•</span>
+      <span>Manifest V3</span>
+      <span class="dot-separator">•</span>
+      <span>Privacy Preserved</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
