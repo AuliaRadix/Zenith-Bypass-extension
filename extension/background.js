@@ -7,6 +7,7 @@ const DEFAULT_DOMAINS = [
   "*.reddit.com",
   "*.redd.it",
   "*.redditmedia.com",
+  "*.kick.com",
   "*.vimeo.com",
   "*.duckduckgo.com",
   "*.medium.com",
@@ -76,7 +77,14 @@ function buildPacScript(config) {
     }
     var domains = ${serializedDomains};
     for (var i = 0; i < domains.length; i++) {
-      if (shExpMatch(host, domains[i])) {
+      var d = domains[i];
+      if (shExpMatch(host, d)) {
+        return "${proxyDirective}; DIRECT";
+      }
+      if (d.slice(0, 2) === "*." && host === d.slice(2)) {
+        return "${proxyDirective}; DIRECT";
+      }
+      if (d.indexOf("*") === -1 && shExpMatch(host, "*." + d)) {
         return "${proxyDirective}; DIRECT";
       }
     }
