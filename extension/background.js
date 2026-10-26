@@ -51,10 +51,11 @@ async function getConfig() {
  * Generate a PAC (Proxy Auto-Config) script based on active configuration
  */
 function buildPacScript(config) {
-  const protocol = (config.proxyProtocol || "HTTPS").toUpperCase();
+  let proto = (config.proxyProtocol || "HTTPS").toUpperCase();
+  if (proto === "HTTP") proto = "PROXY";
   const host = (config.proxyHost || "").trim();
   const port = parseInt(config.proxyPort, 10) || 443;
-  const proxyDirective = `${protocol} ${host}:${port}`;
+  const proxyDirective = `${proto} ${host}:${port}`;
 
   if (config.mode === "global") {
     return `function FindProxyForURL(url, host) {
